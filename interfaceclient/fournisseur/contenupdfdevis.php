@@ -1,0 +1,177 @@
+<?php
+if (isset($_SESSION["nbrPrd"])) {
+  $nbrPrd = $_SESSION["nbrPrd"];
+} else {
+  $nbrPrd = 0; // Default value if the session variable is not set
+}
+
+// This is the PHP script whose output you want to capture
+ob_start();
+?>
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mon devis</title>
+  <style>
+    body {
+      margin-left: 70px;
+      margin-right: 70px;
+    }
+
+    table {
+      width: 100%;
+      text-align: center;
+      border-collapse: collapse;
+    }
+
+    th,
+    td,
+    tr {
+      padding: 5px;
+      vertical-align: center;
+    }
+
+    td {
+      border-bottom: 1px solid #ccc;
+    }
+
+    tbody {
+      border-top: 2px solid #ccc;
+    }
+
+    #pav {
+      text-decoration: underline;
+    }
+
+    .divo {
+      text-align: right;
+      width: 100%;
+      background-color: #0d69d5;
+      margin-bottom: 10px;
+      padding-right: 50px;
+      clear: both;
+    }
+
+    img {
+      max-width: 100%;
+      height: 100px;
+    }
+
+    span {
+      font: 1em sans-serif;
+      background-color: white;
+      border-top: 10px solid white;
+      border-bottom: 10px solid white;
+      font-size: 25px;
+      letter-spacing: 1px;
+      color: initial;
+      width: fit-content;
+      height: inherit;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    /* .between-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+    }
+    .fb-50 {
+      flex-basis: 50%;
+    } */
+    .fl {
+      float: left;
+      width: 50%;
+    }
+
+    .fll {
+      margin-top: 0;
+      float: left;
+      width: 50%;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="fl">
+    <img src="../imgs/{{ profil }}" alt="">
+  </div>
+  <div class="fll">
+    <p>Nom commercial : {{ nomgenerateur }}</p>
+    <p>Adresse : {{ adress }}</p>
+    <p>Email: {{ email }}</p>
+    <p>Date: {{ date }}</p>
+  </div>
+  <br>
+  <div class="divo"><span>CONFIRMATION DEVIS</span></div>
+  <br />
+  <h4>
+    Objet : Demande de soutien matériel pour l'événement {{ nomEvenement }}
+  </h4>
+  <p>À l'attention du Représentant(e) de {{ nomF }}</p>
+  <p>Madame, Monsieur,</p>
+  <p>
+    Nous avons l'honneur de solliciter le soutien matériel de votre entreprise pour notre événement, {{ nomEvenement }}, prévu pour le {{ dateEvenement }}, mettant en avant nos activités dans le domaine de ' {{activite}} '
+  </p>
+  <p>Dans le cadre de cet événement, nous aurions besoin des produits suivants, en quantités spécifiées dans la table ci-dessous
+    Ces produits sont essentiels pour assurer le bon déroulement de notre événement et offrir une expérience mémorable à nos participants.
+  </p>
+  <p>
+    En contrepartie de votre soutien matériel et vos prix raisonables, nous proposons de : {{ services }}
+  </p>
+  <p id="pav">Produits désirés avec leurs quantités:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Produit</th>
+        <th>Designation</th>
+        <th>Quantité</th>
+        <th>PU HT en DH</th>
+        <th>Prix total HT en DH</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <?php for ($index = 1; $index <= $nbrPrd; $index++) {
+        echo '<tr>';
+        echo '  <td  >{{ Produit ' . $index . ' }}</td>';
+        echo '  <td  >{{ Designation ' . $index . ' }}</td>';
+        echo '  <td  >{{ Quantite ' . $index . ' }}</td>';
+        echo '  <td  >{{ PU ' . $index . ' }}</td>';
+        echo '  <td  >{{ Prix ' . $index . ' }}</td>';
+        echo "</tr>";
+      } ?>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Total :</td>
+        <td>{{ total }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5>*Une remise de {{ contenu }} est souhaitable sur ces produits</h5>
+  <p>Cordialement, Représentant(e) de l'entreprise {{ nomgenerateur }}</p>
+  <div class="divo"></div>
+</body>
+
+</html>
+<?php
+// J'ai le contenu de $htmlcontent
+$htmlContent = ob_get_clean();
+
+// Save the output to an HTML file
+$htmlFile = 'contenupdfdevis.html';
+if (file_put_contents($htmlFile, $htmlContent) !== false) {
+  echo "Bien ($htmlFile)";
+} else {
+  echo "echoué.";
+}
+?>

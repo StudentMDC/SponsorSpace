@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://unpkg.com/gutenberg-css@0.6" />
+    <title>Ma demande</title>
+    <link rel="stylesheet" href="../../css/framework.css" />
+    <link rel="stylesheet" href="../../css/master.css" />
+    <style>
+      body {
+        margin-left: 70px;
+        margin-right: 70px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <p>Adresse : <strong>{{ adress }}</strong></p>
+    <p>Email: <strong>{{ email }}</strong></p>
+    <p>Date: <strong>{{ date }}</strong></p>
+    <br />
+    <h4>
+      Objet : Demande de Financement de <strong>{{ prixE }}</strong>DH pour l'événement '<strong>{{ nomEvenement }}</strong>'
+    </h4>
+    <p>À l'attention du Représentant(e) de <strong>{{ nomGdo }}</strong></p>
+    <p>Madame, Monsieur,</p>
+
+    <p>
+      Nous vous adressons cette demande pour solliciter le soutien financier de
+      votre entreprise pour notre événement, <strong>{{ nomEvenement }}</strong>, prévu pour le
+      <strong>{{ dateEvenement }}</strong>, mettant en avant nos activités dans le domaine de <strong>' {{ activite }} '</strong> 
+    </p>
+    <p><strong>{{ contenu }}</strong></p>
+    <p>
+      En contrepartie de votre soutien financier, nous proposons de :<strong>{{ services }}</strong>
+    </p>
+    <p>
+      Nous vous remercions d'avance pour votre considération et votre soutien.
+      Votre contribution aidera à faire de notre événement un
+      succès retentissant et à changer des vies dans notre communauté.
+    </p>
+    <p>
+      Dans l'attente d'une réponse favorable, veuillez agréer, Madame, Monsieur,
+      l'expression de nos salutations distinguées.
+    </p>
+    <p>Représentant(e) de l'entreprise <strong>{{ nomgenerateur }}</strong></p>
+  </body>
+</html>
